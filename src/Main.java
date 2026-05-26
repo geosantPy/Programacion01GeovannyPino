@@ -1,13 +1,11 @@
-package main;
 import java.util.Scanner;
 
 import entities.Reservation;
-import services.FluxioBusService;
-
+import controllers.FluxioBusController;
 public class Main {
-    public static void main(String[] args) {
+    static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        FluxioBusService service = new FluxioBusService();
+        FluxioBusController controller = new FluxioBusController();
         int option = 0;
 
         while (option != 11) {
@@ -56,7 +54,7 @@ public class Main {
                     String passportNumber = scanner.nextLine();
                     System.out.print("Nacionalidad: ");
                     String nationality = scanner.nextLine();
-                    service.registerPassenger(id, firstName, lastName, age, email, phoneNumber, passportNumber, nationality);
+                    controller.registerPassenger(id, firstName, lastName, age, email, phoneNumber, passportNumber, nationality);
                     break;
 
                 case 2:
@@ -92,7 +90,7 @@ public class Main {
                     int nHours = Integer.parseInt(scanner.nextLine());
                     System.out.print("¿Tiene paradas de descanso? (true/false): ");
                     boolean nRest = Boolean.parseBoolean(scanner.nextLine());
-                    service.createNationalRoute(nCode, nOrigin, nDest, nDate, nDepTime, nArrTime, nSeats, nPrice, nHours, nRest);
+                    controller.createNationalRoute(nCode, nOrigin, nDest, nDate, nDepTime, nArrTime, nSeats, nPrice, nHours, nRest);
                     break;
 
                 case 3:
@@ -136,7 +134,7 @@ public class Main {
                         System.out.println("Ingrese una tasa válida.");
                         break;
                     }
-                    service.createInternationalRoute(iCode, iOrigin, iDest, iDate, iDepTime, iArrTime, iSeats, iPrice, iCountry, iPass, iFee);
+                    controller.createInternationalRoute(iCode, iOrigin, iDest, iDate, iDepTime, iArrTime, iSeats, iPrice, iCountry, iPass, iFee);
                     break;
 
                 case 4:
@@ -156,21 +154,21 @@ public class Main {
                     }
                     System.out.print("Fecha de reserva: ");
                     String rDate = scanner.nextLine();
-                    service.createReservation(rCode, rpId, rrCode, rSeats, rDate);
+                    controller.createReservation(rCode, rpId, rrCode, rSeats, rDate);
                     break;
 
                 case 5:
                     System.out.print("Código de reserva a cancelar: ");
                     String cCode = scanner.nextLine();
-                    service.cancelReservation(cCode);
+                    controller.cancelReservation(cCode);
                     break;
 
                 case 6:
                     System.out.print("Código de reserva: ");
                     String fCode = scanner.nextLine();
-                    Reservation foundRes = service.findReservationByCode(fCode);
+                    Reservation foundRes = controller.findReservationByCode(fCode);
                     if (foundRes != null) {
-                        System.out.println(foundRes.toString());
+                        System.out.println(foundRes);
                     } else {
                         System.out.println("No se encontró la reserva con ese código.");
                     }
@@ -179,19 +177,19 @@ public class Main {
                 case 7:
                     System.out.print("Cédula del pasajero: ");
                     String spId = scanner.nextLine();
-                    service.showReservationsByPassenger(spId);
+                    controller.showReservationsByPassenger(spId);
                     break;
 
                 case 8:
-                    service.showTotalPassengers();
+                    controller.showTotalPassengers();
                     break;
 
                 case 9:
-                    service.showAllRoutes();
+                    controller.showAllRoutes();
                     break;
 
                 case 10:
-                    service.showAllReservations();
+                    controller.showAllReservations();
                     break;
 
                 case 11:
